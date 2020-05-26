@@ -39,7 +39,11 @@ import javax.swing.border.TitledBorder;
 import javax.swing.JTabbedPane;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.BevelBorder;
+
 public class gui {
+	public static int numOfVehicle=1;
+
+	public static int numOfJunction=2;
 
 	private JFrame frame;
 
@@ -55,6 +59,7 @@ public class gui {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				
 			}
 		});
 	}
