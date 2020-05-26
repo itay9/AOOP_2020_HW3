@@ -39,7 +39,6 @@ import javax.swing.border.TitledBorder;
 import javax.swing.JTabbedPane;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.BevelBorder;
-
 public class gui {
 
 	private JFrame frame;
