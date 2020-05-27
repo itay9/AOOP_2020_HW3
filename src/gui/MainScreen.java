@@ -165,7 +165,8 @@ public class MainScreen extends JFrame {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Driving driving=new Driving(numOfVehicle, numOfJunction);
-				driving.drive(20);
+				Thread thread = new Thread(driving);
+				thread.start();
 			}
 			
 		});
