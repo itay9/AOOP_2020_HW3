@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -53,7 +54,7 @@ public class sliders extends JDialog {
 			public void stateChanged(ChangeEvent e) {
 				int value=slider.getValue();
 //				System.out.println(value);
-				gui.numOfVehicle=value;
+				MainScreen.numOfVehicle=value;
 			}
 
 		});
@@ -84,7 +85,7 @@ public class sliders extends JDialog {
 			public void stateChanged(ChangeEvent e) {
 				int value=slider1.getValue();
 //				System.out.println(value);
-				gui.numOfJunction=value;
+				MainScreen.numOfJunction=value;
 				
 			}
 			
@@ -110,9 +111,10 @@ public class sliders extends JDialog {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						// TODO Auto-generated method stub
-						Driving driving=new Driving(gui.numOfVehicle, gui.numOfJunction);
-						driving.drive(20);
+//						Driving driving=new Driving(gui.numOfVehicle, gui.numOfJunction);
+//						driving.drive(20);
 						dispose();
+						
 					}
 					
 				});
@@ -132,4 +134,5 @@ public class sliders extends JDialog {
 			}
 		}
 	}
+	
 }
