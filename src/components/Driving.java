@@ -12,40 +12,41 @@ import utilities.Utilities;
  * @author Sophie Krimberg
  *
  */
-public class Driving implements Utilities, Timer{
+public class Driving extends Thread implements Utilities, Timer{
 	private Map map;
 	private ArrayList<Vehicle> vehicles;
 	private int drivingTime;
 	private ArrayList<Timer> allTimedElements;
-	
+	private Boolean Stop = false; // for the counter
+
 	/**Constructor
 	 * @param junctionsNum quantity of junctions
 	 * @param numOfVehicles quantity of vehicles
 	 */
 	public Driving(int junctionsNum, int numOfVehicles) {
-		
+
 		vehicles=new ArrayList<Vehicle>();
 		allTimedElements=new ArrayList<Timer>();
 		drivingTime=0;
 		map=new Map(junctionsNum);
-		
+
 		System.out.println("\n================= CREATING VEHICLES =================");
-		
+
 		while(vehicles.size()<numOfVehicles) {
 			Road temp=map.getRoads().get(getRandomInt(0,map.getRoads().size()));//random road from the map
 			if( temp.getEnabled())
 				vehicles.add(new Vehicle(temp));
 		}
-		
+
 		allTimedElements.addAll(vehicles);
-		
+
 		for (TrafficLights light: map.getLights()) {
 			if (light.getTrafficLightsOn()) {
 				allTimedElements.add(light);
 			}
 		}
 	}
-	
+
 	/**
 	 * @return the map
 	 */
@@ -122,13 +123,21 @@ public class Driving implements Utilities, Timer{
 			element.incrementDrivingTime();
 			System.out.println();
 		}
-		
+
 	}
 
 	@Override
 	public String toString() {
 		return "Driving [map=" + map + ", vehicles=" + vehicles + ", drivingTime=" + drivingTime + ", allTimedElements="
 				+ allTimedElements + "]";
+	}
+	public void run(){
+		System.out.println("\n================= START DRIVING=================");
+		int turns = 20;
+		drivingTime=0;
+		for (int i=0; i<turns;i++) {
+			incrementDrivingTime();
+		}
 	}
 
 }
