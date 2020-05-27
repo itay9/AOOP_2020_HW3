@@ -16,7 +16,7 @@ import utilities.VehicleType;
  * @author Sophie Krimberg
  *
  */
-public class Junction extends utilities.Point implements RouteParts {
+public class Junction extends utilities.Point implements RouteParts,Runnable {
 	
 	private String junctionName;
 	private ArrayList <Road> enteringRoads;
@@ -241,8 +241,12 @@ public class Junction extends utilities.Point implements RouteParts {
 	public static void setObjectsCount(int objectsCount) {
 		Junction.objectsCount = objectsCount;
 	}
-	
 
+
+	@Override
+	public void run() {
+		//todo put things that run ? time ?
+	}
 }
 
 
