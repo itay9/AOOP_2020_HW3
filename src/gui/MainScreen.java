@@ -6,6 +6,7 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Rectangle;
 import java.awt.SystemColor;
@@ -28,9 +29,11 @@ public class MainScreen extends JFrame {
 	
 	public static int numOfVehicle=25;
 	public static int numOfJunction=11;
+	private static Driving driving;
+	private static PaintMap map;
+	private static JPanel contentPane;
+	private sliders sl;
 
-
-	private JPanel contentPane;
 
 	/**
 	 * 
@@ -55,6 +58,7 @@ public class MainScreen extends JFrame {
 	 * Main JFrame 
 	 */
 	public MainScreen() {
+		this.setTitle("Road system");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
@@ -63,8 +67,25 @@ public class MainScreen extends JFrame {
 		contentPane.setLayout(new BorderLayout());
 		
 		
-		JMenuBar menuBar = new JMenuBar();
+		JMenuBar menuBar = menuBar();
 		this.setJMenuBar(menuBar);
+		
+		
+		JPanel panel =menuPanel();
+		panel.setPreferredSize(new Dimension(10, 35));
+		panel.setLayout(new GridLayout(0, 5, 0, 0));
+		contentPane.add(panel, BorderLayout.SOUTH);
+		
+		map = new PaintMap(driving);
+		map.setBounds(0, 0, 800, 600);
+		map.setOpaque(false);
+		contentPane.add(map);
+		
+
+	}//end of MainScreen
+	
+	private JMenuBar menuBar() {
+		JMenuBar menuBar=new JMenuBar();
 		JMenu mnNewMenu = new JMenu("File");
 		mnNewMenu.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		menuBar.add(mnNewMenu);
@@ -88,6 +109,11 @@ public class MainScreen extends JFrame {
 		mntmNewMenuItem_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				contentPane.setBackground(Color.blue);
+//				map=new PaintMap(driving);
+//				map.setOpaque(false);
+//				contentPane.add(map);
+//				contentPane.revalidate();
+//				reMap(); 
 			}
 		});
 		mnNewMenu_1.add(mntmNewMenuItem_3);
@@ -136,22 +162,18 @@ public class MainScreen extends JFrame {
 		mntmNewMenuItem_1.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		mnNewMenu_3.add(mntmNewMenuItem_1);
 		
-		
-		JPanel panel =menuPanel();
-		panel.setPreferredSize(new Dimension(10, 35));
-		panel.setLayout(new GridLayout(0, 5, 0, 0));
-		contentPane.add(panel, BorderLayout.SOUTH);
-		
-	}//end of MainScreen
-	
+		return menuBar;
+	}// end of menu bar
 	
 	private JPanel menuPanel() {
 		JPanel menu=new JPanel();
 		JButton btnNewButton = new JButton("Create road system");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				sliders sl=new sliders();
-				sl.NewScreen();
+				sl=new sliders(getMap());
+//				sl.NewScreen();
+				sl.setVisible(true);
+//				contentPane.revalidate();
 			}
 			
 		});
@@ -164,7 +186,7 @@ public class MainScreen extends JFrame {
 		JButton btnNewButton_1 = new JButton("Start");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Driving driving=new Driving(numOfVehicle, numOfJunction);
+//				Driving driving=new Driving(numOfVehicle, numOfJunction);
 				driving.drive(20);
 			}
 			
@@ -192,7 +214,31 @@ public class MainScreen extends JFrame {
 		btnInfo.setSize(new Dimension(14, 0));
 		menu.add(btnInfo);
 		return menu;
+	}//end of menuPanel
+
+	public static Driving getDriving() {
+		return driving;
 	}
 	
+	public static void setDriving(Driving drive) {
+		driving = drive;
+		
+	}
+	
+	public static void reMap() {
+	
+		getMap().setOpaque(false);
+		contentPane.add(getMap());
+		contentPane.revalidate();
+
+	}
+
+	public static PaintMap getMap() {
+		return map;
+	}
+
+	public static void setMap(PaintMap m) {
+		map = m;
+	}
 
 }//class ends
