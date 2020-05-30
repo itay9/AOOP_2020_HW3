@@ -137,7 +137,11 @@ public class Driving extends Thread implements Utilities, Timer{
 		drivingTime=0;
 		for (int i=0; i<turns;i++) {
 			incrementDrivingTime();
+			try {
+				wait(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 	}
-
 }

@@ -16,7 +16,7 @@ import utilities.VehicleType;
  * @author Sophie Krimberg
  *
  */
-public class Junction extends utilities.Point implements RouteParts,Runnable {
+public class Junction extends utilities.Point implements RouteParts , Runnable{
 	
 	private String junctionName;
 	private ArrayList <Road> enteringRoads;
@@ -245,7 +245,7 @@ public class Junction extends utilities.Point implements RouteParts,Runnable {
 
 	@Override
 	public void run() {
-		//todo put things that run ? time ?
+
 	}
 }
 

@@ -264,6 +264,18 @@ public class Vehicle implements Utilities, Timer {
 	public static void setObjectsCount(int objectsCount) {
 		Vehicle.objectsCount = objectsCount;
 	}
-	
+/*
+	public void run(){
+		timeFromRouteStart++;
+		timeOnCurrentPart++;
+		move();
+		try {
+			wait(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+	}
+	*/
 	
 }
