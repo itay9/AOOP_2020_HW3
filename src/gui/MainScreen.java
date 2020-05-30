@@ -202,7 +202,7 @@ public class MainScreen extends JFrame {
 		JButton btnNewButton_2 = new JButton("Stop");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				driving.stop();
 			}
 		});
 		btnNewButton_2.setBackground(SystemColor.scrollbar);
@@ -211,6 +211,11 @@ public class MainScreen extends JFrame {
 		menu.add(btnNewButton_2);
 		
 		JButton btnNewButton_3 = new JButton("Resume");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				driving.resume();
+			}
+		});
 		btnNewButton_3.setBackground(SystemColor.scrollbar);
 		btnNewButton_3.setBorder(new LineBorder(Color.BLUE));
 		btnNewButton_3.setSize(new Dimension(14, 0));

@@ -149,10 +149,21 @@ public class Driving implements Utilities, Timer{
 		for (int i=0; i<turns;i++) {
 			incrementDrivingTime();
 			try {
-				wait(1000);
+				wait(100);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
+	}
+	public synchronized void resume(){
+		setStop(false);
+		this.notifyAll();
+	}
+	public void stop(){
+		setStop(true);
+	}
+
+	public void setStop(Boolean stop) {
+		Stop = stop;
 	}
 }
