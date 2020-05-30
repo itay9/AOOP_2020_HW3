@@ -23,39 +23,40 @@ public class Vehicle implements Utilities, Timer {
 	private Route currentRoute;
 	private RouteParts currentRoutePart;
 	private int timeFromRouteStart;
-	private static int objectsCount=1;
+	private static int objectsCount = 1;
 	private int timeOnCurrentPart;
 	private Road lastRoad;
 	private String status;
 	private Point location;
-	
-	/**Random Constructor
+	private Boolean isStop;
+	private Driving driving;
+
+	/**
+	 * Random Constructor
+	 *
 	 * @param currentLocation
 	 */
-	public Vehicle (Road currentLocation) {
+	public Vehicle(Road currentLocation,Driving d) {
 
-		id=objectsCount++;
-		vehicleType=currentLocation.getVehicleTypes()[getRandomInt(0,currentLocation.getVehicleTypes().length-1)];
+		id = objectsCount++;
+		vehicleType = currentLocation.getVehicleTypes()[getRandomInt(0, currentLocation.getVehicleTypes().length - 1)];
 		System.out.println();
 		successMessage(this.toString());
-		currentRoute=new Route(currentLocation, this); //creates a new route for the vehicle and checks it in
-		lastRoad=currentLocation;
-		status=null;
-		location=new Point(this.lastRoad.getStartJunction().getX(),this.lastRoad.getStartJunction().getY());
-		
+		currentRoute = new Route(currentLocation, this); //creates a new route for the vehicle and checks it in
+		lastRoad = currentLocation;
+		status = null;
+		location = new Point(this.lastRoad.getStartJunction().getX(), this.lastRoad.getStartJunction().getY());
+		isStop = false;
+		driving=d;
 	}
-	
-	
-	
-	
+
+
 	/**
 	 * @return the id
 	 */
 	public int getid() {
 		return this.id;
 	}
-
-
 
 
 	/**
@@ -66,16 +67,12 @@ public class Vehicle implements Utilities, Timer {
 	}
 
 
-
-
 	/**
 	 * @return the vehicleType
 	 */
 	public VehicleType getVehicleType() {
 		return vehicleType;
 	}
-
-
 
 
 	/**
@@ -86,16 +83,12 @@ public class Vehicle implements Utilities, Timer {
 	}
 
 
-
-
 	/**
 	 * @return the currentRoute
 	 */
 	public Route getCurrentRoute() {
 		return currentRoute;
 	}
-
-
 
 
 	/**
@@ -106,16 +99,12 @@ public class Vehicle implements Utilities, Timer {
 	}
 
 
-
-
 	/**
 	 * @return the currentRoutePart
 	 */
 	public RouteParts getCurrentRoutePart() {
 		return currentRoutePart;
 	}
-
-
 
 
 	/**
@@ -126,16 +115,12 @@ public class Vehicle implements Utilities, Timer {
 	}
 
 
-
-
 	/**
 	 * @return the timeFromRouteStart
 	 */
 	public int getTimeFromRouteStart() {
 		return timeFromRouteStart;
 	}
-
-
 
 
 	/**
@@ -146,16 +131,12 @@ public class Vehicle implements Utilities, Timer {
 	}
 
 
-
-
 	/**
 	 * @return the timeOnCurrentPart
 	 */
 	public int getTimeOnCurrentPart() {
 		return timeOnCurrentPart;
 	}
-
-
 
 
 	/**
@@ -166,16 +147,12 @@ public class Vehicle implements Utilities, Timer {
 	}
 
 
-
-
 	/**
 	 * @return the lastRoad
 	 */
 	public Road getLastRoad() {
 		return lastRoad;
 	}
-
-
 
 
 	/**
@@ -186,16 +163,12 @@ public class Vehicle implements Utilities, Timer {
 	}
 
 
-
-
 	/**
 	 * @return the status
 	 */
 	public String getStatus() {
 		return status;
 	}
-
-
 
 
 	/**
@@ -206,8 +179,6 @@ public class Vehicle implements Utilities, Timer {
 	}
 
 
-
-
 	/**
 	 * @return the objectsCount
 	 */
@@ -216,49 +187,46 @@ public class Vehicle implements Utilities, Timer {
 	}
 
 
-
-
 	@Override
 	public void incrementDrivingTime() {
 		timeFromRouteStart++;
 		timeOnCurrentPart++;
 		move();
 	}
-	
-	/**controls the vehicle moving from one route part to the next one
-	 * 
+
+	/**
+	 * controls the vehicle moving from one route part to the next one
 	 */
 	public void move() {
 		if (currentRoutePart.canLeave(this)) {
 			currentRoutePart.checkOut(this);
 			currentRoute.findNextPart(this).checkIn(this);
-		}
-		else {
+		} else {
 			currentRoutePart.stayOnCurrentPart(this);
 		}
 	}
-	
-	
+
+
 	@Override
 	public String toString() {
-		return new String("Vehicle "+id+": "+ getVehicleType().name()+", average speed: "+getVehicleType().getAverageSpeed());
+		return new String("Vehicle " + id + ": " + getVehicleType().name() + ", average speed: " + getVehicleType().getAverageSpeed());
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null) return false; 
-	    if (getClass() != obj.getClass()) return false; 
-	    if (! super.equals(obj)) return false;
-		Vehicle other=(Vehicle)obj;
-		if (this.currentRoute!=other.currentRoute||
-			this.currentRoutePart!=other.currentRoutePart||
-			this.id!=other.id||
-			this.lastRoad!=other.lastRoad||
-			this.status!=other.status||
-			this.timeFromRouteStart!=other.timeFromRouteStart||
-			this.timeOnCurrentPart!=other.timeOnCurrentPart||
-			this.vehicleType!=other.vehicleType)
-				return false;
+		if (obj == null) return false;
+		if (getClass() != obj.getClass()) return false;
+		if (!super.equals(obj)) return false;
+		Vehicle other = (Vehicle) obj;
+		if (this.currentRoute != other.currentRoute ||
+				this.currentRoutePart != other.currentRoutePart ||
+				this.id != other.id ||
+				this.lastRoad != other.lastRoad ||
+				this.status != other.status ||
+				this.timeFromRouteStart != other.timeFromRouteStart ||
+				this.timeOnCurrentPart != other.timeOnCurrentPart ||
+				this.vehicleType != other.vehicleType)
+			return false;
 		return true;
 	}
 
@@ -269,17 +237,31 @@ public class Vehicle implements Utilities, Timer {
 		Vehicle.objectsCount = objectsCount;
 	}
 
-	public void run(){
-		timeFromRouteStart++;
-		timeOnCurrentPart++;
-		move();
-		try {
-			wait(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+	public void run() {
+		while(true) {//
+			synchronized (d) {
+				while(d.isStop() == true) {
+					try {
+						d.wait();
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+
+			incrementDrivingTime();
+
 		}
+
 
 	}
 
-	
+	public void setStop(Boolean stop) {
+		isStop = stop;
+	}
+
+	public Boolean getStop() {
+		return isStop;
+	}
 }
+

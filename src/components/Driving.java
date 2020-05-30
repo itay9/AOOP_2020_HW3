@@ -136,18 +136,18 @@ public class Driving implements Utilities, Timer{
 		return "Driving [map=" + map + ", vehicles=" + vehicles + ", drivingTime=" + drivingTime + ", allTimedElements="
 				+ allTimedElements + "]";
 	}
-	public void run(){
+	public void run() {
 		System.out.println("\n================= START DRIVING=================");
 		int turns = 20;
 		// init all
 
-		for(Timer t : allTimedElements) {
+		for (Timer t : allTimedElements) {
 			Thread thread = new Thread(t);
 			thread.start();
 		}
-
-		for (int i=0; i<turns;i++) {
-			incrementDrivingTime();
+		int i = 0;
+		while (true) {
+			paintMap.update();
 			try {
 				wait(100);
 			} catch (InterruptedException e) {
