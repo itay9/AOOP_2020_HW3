@@ -7,7 +7,7 @@ package utilities;
  * @author Sophie Krimberg
  *
  */
-public abstract class Point implements Utilities {
+public class Point implements Utilities {
 	private double x;
 	private double y;
 	private final int minVal = 0;

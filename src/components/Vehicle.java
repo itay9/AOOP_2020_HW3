@@ -4,9 +4,11 @@
 package components;
 
 
+import utilities.Point;
 import utilities.Timer;
 import utilities.Utilities;
 import utilities.VehicleType;
+import gui.*;
 /**
  * @author Sophie Krimberg
  *
@@ -25,6 +27,7 @@ public class Vehicle implements Utilities, Timer {
 	private int timeOnCurrentPart;
 	private Road lastRoad;
 	private String status;
+	private Point location;
 	
 	/**Random Constructor
 	 * @param currentLocation
@@ -38,6 +41,7 @@ public class Vehicle implements Utilities, Timer {
 		currentRoute=new Route(currentLocation, this); //creates a new route for the vehicle and checks it in
 		lastRoad=currentLocation;
 		status=null;
+		location=new Point(this.lastRoad.getStartJunction().getX(),this.lastRoad.getStartJunction().getY());
 		
 	}
 	
@@ -47,8 +51,8 @@ public class Vehicle implements Utilities, Timer {
 	/**
 	 * @return the id
 	 */
-	public int getId() {
-		return id;
+	public int getid() {
+		return this.id;
 	}
 
 
@@ -264,7 +268,7 @@ public class Vehicle implements Utilities, Timer {
 	public static void setObjectsCount(int objectsCount) {
 		Vehicle.objectsCount = objectsCount;
 	}
-/*
+
 	public void run(){
 		timeFromRouteStart++;
 		timeOnCurrentPart++;
@@ -276,6 +280,6 @@ public class Vehicle implements Utilities, Timer {
 		}
 
 	}
-	*/
+
 	
 }

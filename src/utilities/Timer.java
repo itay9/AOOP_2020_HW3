@@ -7,7 +7,7 @@ package utilities;
  * @author Sophie Krimberg
  *
  */
-public interface Timer {
+public interface Timer extends Runnable{
 	public void incrementDrivingTime();
 }
 

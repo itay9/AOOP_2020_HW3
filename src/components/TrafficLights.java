@@ -226,6 +226,19 @@ public abstract class TrafficLights implements Timer, Utilities{
 	public int getMinDelay() {
 		return minDelay;
 	}
+
+	@Override
+	public void run() {
+		while(true) {
+			setTrafficLightsOn(true);
+			try {
+				Thread.sleep(delay*100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+
+		}
+	}
 }
 
 
