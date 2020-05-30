@@ -37,7 +37,7 @@ public class Driving implements Utilities, Timer{
 		while(vehicles.size()<numOfVehicles) {
 			Road temp=map.getRoads().get(getRandomInt(0,map.getRoads().size()));//random road from the map
 			if( temp.getEnabled())
-				vehicles.add(new Vehicle(temp));
+				vehicles.add(new Vehicle(temp,this));
 		}
 
 		allTimedElements.addAll(vehicles);
@@ -145,14 +145,16 @@ public class Driving implements Utilities, Timer{
 			Thread thread = new Thread(t);
 			thread.start();
 		}
-		int i = 0;
-		while (true) {
-			paintMap.update();
-			try {
-				wait(100);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+		for (int i = 0; i < turns; i++) {
+			while (!Stop) {
+				paintMap.update();
+				try {
+					wait(100);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 			}
+			incrementDrivingTime();
 		}
 	}
 	public synchronized void resume(){
@@ -161,6 +163,10 @@ public class Driving implements Utilities, Timer{
 	}
 	public void stop(){
 		setStop(true);
+	}
+
+	public Boolean getStop() {
+		return Stop;
 	}
 
 	public void setStop(Boolean stop) {

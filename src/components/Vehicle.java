@@ -28,7 +28,7 @@ public class Vehicle implements Utilities, Timer {
 	private Road lastRoad;
 	private String status;
 	private Point location;
-	private Boolean isStop;
+	//private Boolean isStop;
 	private Driving driving;
 
 	/**
@@ -46,7 +46,7 @@ public class Vehicle implements Utilities, Timer {
 		lastRoad = currentLocation;
 		status = null;
 		location = new Point(this.lastRoad.getStartJunction().getX(), this.lastRoad.getStartJunction().getY());
-		isStop = false;
+	//	isStop = false;
 		driving=d;
 	}
 
@@ -239,10 +239,10 @@ public class Vehicle implements Utilities, Timer {
 
 	public void run() {
 		while(true) {//
-			synchronized (d) {
-				while(d.isStop() == true) {
+			synchronized (driving) {
+				while(driving.getStop() == true) {
 					try {
-						d.wait();
+						driving.wait();
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
@@ -255,7 +255,7 @@ public class Vehicle implements Utilities, Timer {
 
 
 	}
-
+/*
 	public void setStop(Boolean stop) {
 		isStop = stop;
 	}
@@ -263,5 +263,7 @@ public class Vehicle implements Utilities, Timer {
 	public Boolean getStop() {
 		return isStop;
 	}
+
+ */
 }
 

@@ -18,6 +18,7 @@ public class Test {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		/*
 		Junction a=new Junction();
 		Junction b=new Junction();
 //		Junction 1 (196,16 , 225,33) has been created.
@@ -110,5 +111,6 @@ public class Test {
 	}
 	
 	
-
+*/
+	}
 }
