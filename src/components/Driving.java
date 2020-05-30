@@ -5,6 +5,7 @@ package components;
 
 import java.util.ArrayList;
 
+import gui.MainScreen;
 import gui.PaintMap;
 import utilities.Timer;
 import utilities.Utilities;
@@ -155,6 +156,7 @@ public class Driving implements Utilities, Timer{
 				}
 			}
 			incrementDrivingTime();
+			MainScreen.reMap();
 		}
 	}
 	public synchronized void resume(){
