@@ -17,21 +17,22 @@ import javax.swing.JLabel;
 import javax.swing.JSlider;
 import java.awt.GridLayout;
 import java.awt.CardLayout;
+import java.awt.Container;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class sliders extends JDialog {
-
 	private final JPanel contentPanel = new JPanel();
+	private PaintMap m;
 
 	/**
 	 * Launch the application.
 	 */
 	public void NewScreen() {
 		try {
-			sliders dialog = new sliders();
+			sliders dialog = new sliders(getM());
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -42,7 +43,8 @@ public class sliders extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public sliders() {		
+	public sliders(PaintMap m) {	
+		this.setM(m);
 		setBounds(100, 100,600,300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -111,10 +113,12 @@ public class sliders extends JDialog {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						// TODO Auto-generated method stub
-//						Driving driving=new Driving(gui.numOfVehicle, gui.numOfJunction);
-//						driving.drive(20);
+						MainScreen.setDriving(new Driving(MainScreen.numOfVehicle,MainScreen.numOfJunction));
+//						m.update();
+						MainScreen.setMap(new PaintMap(MainScreen.getDriving()));
+						MainScreen.reMap();
 						dispose();
-						
+
 					}
 					
 				});
@@ -133,6 +137,14 @@ public class sliders extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
+	}
+	
+	public PaintMap getM() {
+		return m;
+	}
+
+	public void setM(PaintMap m) {
+		this.m = m;
 	}
 	
 }
