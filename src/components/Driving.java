@@ -5,6 +5,7 @@ package components;
 
 import java.util.ArrayList;
 
+import gui.PaintMap;
 import utilities.Timer;
 import utilities.Utilities;
 
@@ -12,24 +13,25 @@ import utilities.Utilities;
  * @author Sophie Krimberg
  *
  */
-public class Driving extends Thread implements Utilities, Timer{
+public class Driving implements Utilities, Timer{
 	private Map map;
 	private ArrayList<Vehicle> vehicles;
 	private int drivingTime;
 	private ArrayList<Timer> allTimedElements;
 	private Boolean Stop = false; // for the counter
+	private PaintMap paintMap;
 
 	/**Constructor
 	 * @param junctionsNum quantity of junctions
 	 * @param numOfVehicles quantity of vehicles
 	 */
-	public Driving(int junctionsNum, int numOfVehicles) {
+	public Driving(int junctionsNum, int numOfVehicles,PaintMap paint) {
 
 		vehicles=new ArrayList<Vehicle>();
 		allTimedElements=new ArrayList<Timer>();
 		drivingTime=0;
 		map=new Map(junctionsNum);
-
+		paintMap = paint;
 		System.out.println("\n================= CREATING VEHICLES =================");
 
 		while(vehicles.size()<numOfVehicles) {
@@ -45,6 +47,9 @@ public class Driving extends Thread implements Utilities, Timer{
 				allTimedElements.add(light);
 			}
 		}
+		paintMap.setDriving(this);
+		paintMap.update();
+
 	}
 
 	/**
@@ -134,10 +139,31 @@ public class Driving extends Thread implements Utilities, Timer{
 	public void run(){
 		System.out.println("\n================= START DRIVING=================");
 		int turns = 20;
-		drivingTime=0;
+		// init all
+
+		for(Timer t : allTimedElements) {
+			Thread thread = new Thread(t);
+			thread.start();
+		}
+
 		for (int i=0; i<turns;i++) {
 			incrementDrivingTime();
+			try {
+				wait(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 	}
+	public synchronized void resume(){
+		setStop(false);
+		this.notifyAll();
+	}
+	public void stop(){
+		setStop(true);
+	}
 
+	public void setStop(Boolean stop) {
+		Stop = stop;
+	}
 }

@@ -113,7 +113,7 @@ public class sliders extends JDialog {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						// TODO Auto-generated method stub
-						MainScreen.setDriving(new Driving(MainScreen.numOfVehicle,MainScreen.numOfJunction));
+						MainScreen.setDriving(new Driving(MainScreen.numOfVehicle,MainScreen.numOfJunction,m));
 //						m.update();
 						MainScreen.setMap(new PaintMap(MainScreen.getDriving()));
 						MainScreen.reMap();

@@ -187,7 +187,7 @@ public class MainScreen extends JFrame {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				Driving driving=new Driving(numOfVehicle, numOfJunction);
+				Driving driving=new Driving(numOfVehicle, numOfJunction,map);
 				Thread thread = new Thread(driving);
 				thread.start();
 
@@ -200,12 +200,22 @@ public class MainScreen extends JFrame {
 		menu.add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("Stop");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				driving.stop();
+			}
+		});
 		btnNewButton_2.setBackground(SystemColor.scrollbar);
 		btnNewButton_2.setBorder(new LineBorder(Color.BLUE));
 		btnNewButton_2.setSize(new Dimension(14, 0));
 		menu.add(btnNewButton_2);
 		
 		JButton btnNewButton_3 = new JButton("Resume");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				driving.resume();
+			}
+		});
 		btnNewButton_3.setBackground(SystemColor.scrollbar);
 		btnNewButton_3.setBorder(new LineBorder(Color.BLUE));
 		btnNewButton_3.setSize(new Dimension(14, 0));
